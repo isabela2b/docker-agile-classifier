@@ -10,7 +10,7 @@
 services:
   web-dev:
     platform: linux/amd64
-    image: aicargomation.azurecr.io/agile-classifier-web:dev0
+    image: aicargomation.azurecr.io/agile-classifier-web:dev1
     command: gunicorn --bind=0.0.0.0:5000 --timeout 500 'app:create_app()'
     expose:
       - 5000
@@ -19,6 +19,16 @@ services:
     depends_on:
       - redis
     mem_limit: 6000M
+    restart: always
+
+  celery:
+    platform: linux/amd64
+    image: aicargomation.azurecr.io/agile-classifier-web:dev1
+    command: celery -A celery_worker worker --loglevel=warning
+    env_file:
+      - .env.dev
+    depends_on:
+      - redis
     restart: always
 
   redis:
