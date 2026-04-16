@@ -10,7 +10,7 @@
 services:
   web-dev:
     platform: linux/amd64
-    image: aicargomation.azurecr.io/agile-classifier-web:dev4
+    image: aicargomation.azurecr.io/agile-classifier-web:dev5
     command: gunicorn --bind=0.0.0.0:5000 --timeout 500 'app:create_app()'
     expose:
       - 5000
@@ -23,7 +23,7 @@ services:
 
   celery:
     platform: linux/amd64
-    image: aicargomation.azurecr.io/agile-classifier-web:dev4
+    image: aicargomation.azurecr.io/agile-classifier-web:dev5
     command: celery -A celery_worker worker --loglevel=warning
     env_file:
       - .env.dev
